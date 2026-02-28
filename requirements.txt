@@ -1,0 +1,22 @@
+# Deep Learning Core
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision & Image Processing
+opencv-python>=4.8.0
+Pillow>=9.5.0
+scikit-image>=0.21.0
+
+# LaMa Architecture Dependencies
+timm>=0.9.0         # PyTorch Image Models (often used for LaMa backbones)
+omegaconf>=2.3.0    # For managing complex model configuration files
+pyyaml>=6.0         # Parsing YAML config files
+
+# Evaluation Metrics (LPIPS, PSNR, SSIM)
+lpips>=0.1.4        # Learned Perceptual Image Patch Similarity
+torchmetrics>=1.0.0 # Standardized PyTorch metrics including PSNR and SSIM
+
+# Data Manipulation & Visualization
+numpy>=1.24.0
+matplotlib>=3.7.0
+tqdm>=4.65.0        # Progress bars for the training loop
