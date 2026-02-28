@@ -1,9 +1,4 @@
 # Paint-Paint: Domain Adaptive Image Inpainting via Self-Supervised Fine-Tuning
-
-**Course:** CSE 6324 Advanced Topics in Software Engineering  
-**Instructor:** Jude Agujiobi  
-**Authors:** Bijay Bastakoti and Binamra Aryal  
-
 ---
 
 ## 📌 Project Overview
