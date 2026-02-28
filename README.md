@@ -1,5 +1,5 @@
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Binamra00/paint-paint/blob/main/notebooks/domain_inpaint.ipynb)
 # Paint-Paint: Domain Adaptive Image Inpainting via Self-Supervised Fine-Tuning
----
 
 ## 📌 Project Overview
 General-purpose image inpainting models (trained on massive datasets like Places2 or ImageNet) often fail to generalize to specialized domains with unique, high-frequency textures, such as medical imagery or specific biological datasets. 
