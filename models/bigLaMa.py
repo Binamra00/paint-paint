@@ -17,9 +17,8 @@ def fetch_pretrained_lama(target_dir="models/weights"):
     model_path = os.path.join(target_dir, "big-lama.pt")
     
     # URL to a standard accessible BigLaMa TorchScript/checkpoint file
-    # Note: In a real training loop, we load this via Torch. 
-    # For Phase 3, we just ensure it is successfully downloaded.
-    lama_url = "https://github.com/advimman/lama/releases/download/v1.0/big-lama.zip"
+    # Updated to the official Hugging Face mirror
+    lama_url = "https://huggingface.co/smartywu/big-lama/resolve/main/big-lama.zip"
     
     if not os.path.exists(model_path):
         logging.info("Downloading pre-trained BigLaMa (Places2) weights...")
