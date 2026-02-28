@@ -1,0 +1,53 @@
+# Environments and Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python Cache & Compiled Files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook & Colab Artifacts
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# PyTorch Model Checkpoints & Weights
+# (We only want to track the code, not the massive trained model files)
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+models/weights/
+checkpoints/
+
+# Data Directories & Downloaded Archives
+# (Your scripts should download these, we don't want the raw images on GitHub)
+*.zip
+*.tar.gz
+data/raw/
+data/processed/
+data/oxford-102/
+data/masks/
+
+# Training Logs & Evaluation Outputs
+logs/
+runs/
+wandb/
+tensorboard/
+eval_results/
+*.log
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
