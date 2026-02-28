@@ -43,8 +43,8 @@ from google.colab import drive
 # 1. Mount Google Drive for persistent storage
 drive.mount('/content/drive')
 
-# 2. Define the exact Drive paths
-PROJECT_ROOT = '/content/drive/'
+# 2. Define the exact Drive paths (Must use MyDrive!)
+PROJECT_ROOT = '/content/drive/MyDrive/'
 REPO_DIR = os.path.join(PROJECT_ROOT, 'paint-paint')
 
 os.makedirs(PROJECT_ROOT, exist_ok=True)
