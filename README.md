@@ -34,3 +34,39 @@ To reproduce this environment:
 1. Open a new Google Colab notebook.
 2. Ensure you have access to Google Drive.
 3. Copy and run the bootstrap script below in the first cell to mount your Drive, clone this repository, and install dependencies:
+
+```python
+import os
+import sys
+from google.colab import drive
+
+# 1. Mount Google Drive for persistent storage
+drive.mount('/content/drive')
+
+# 2. Define the exact Drive paths
+PROJECT_ROOT = '/content/drive/'
+REPO_DIR = os.path.join(PROJECT_ROOT, 'paint-paint')
+
+os.makedirs(PROJECT_ROOT, exist_ok=True)
+%cd "{PROJECT_ROOT}"
+
+# 3. Version Control: Clone or Pull the codebase
+if not os.path.exists(REPO_DIR):
+    print("Cloning the codebase from GitHub...")
+    !git clone https://github.com/Binamra00/paint-paint.git
+else:
+    print("Codebase exists. Pulling latest changes from GitHub...")
+    %cd "{REPO_DIR}"
+    !git pull
+    %cd "{PROJECT_ROOT}"
+
+# 4. The Magic Trick: Add repo to Python Path
+# This allows you to do `import models.lama` in this notebook
+if REPO_DIR not in sys.path:
+    sys.path.append(REPO_DIR)
+
+# 5. Install Dependencies
+%cd "{REPO_DIR}"
+!pip install -q -r requirements.txt
+print("Environment Ready!")
+```
