@@ -1,4 +1,3 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Binamra00/paint-paint/blob/main/notebooks/domain_inpaint.ipynb)
 # Paint-Paint: Domain Adaptive Image Inpainting via Self-Supervised Fine-Tuning
 
 ## 📌 Project Overview
@@ -27,3 +26,11 @@ paint-paint/
 ├── notebooks/          # Primary orchestrator notebook (domain_inpaint.ipynb)
 ├── requirements.txt    # Exact environment dependencies
 └── README.md
+```
+## ⚙️ Reproducibility & Setup (Google Colab)
+This project uses the "Driver and Library" pattern. The repository acts as the version-controlled library, while execution is handled via a Colab notebook connected to Google Drive for persistent storage.
+
+To reproduce this environment:
+1. Open a new Google Colab notebook.
+2. Ensure you have access to Google Drive.
+3. Copy and run the bootstrap script below in the first cell to mount your Drive, clone this repository, and install dependencies:
