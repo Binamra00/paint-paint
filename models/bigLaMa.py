@@ -61,7 +61,7 @@ class BigLaMa(nn.Module):
             nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
             nn.ReLU(inplace=True),
             nn.ConvTranspose2d(32, 3, kernel_size=4, stride=2, padding=1),
-            nn.Sigmoid() # Squish final pixel values between 0 and 1
+            nn.Tanh() # Squish final pixel values between -1 and 1
         )
 
     def forward(self, image, mask):
