@@ -1,4 +1,3 @@
-%%writefile models/unet_gated.py
 """
 Baseline Model: U-Net with Gated Convolutions
 Pipeline Stage: Architecture Setup
