@@ -19,7 +19,7 @@ class GatedConv2d(nn.Module):
 
     def forward(self, x):
         feature = self.feature_conv(x)
-        gate = torch.sigmoid(self.gate_conv(x)) # Squish gate between 0 and 1
+        gate = torch.Tanh(self.gate_conv(x)) # Squish gate between -1 and 1
         return feature * gate # Multiply to mask out garbage pixels
 
 class BaselineUNet(nn.Module):
