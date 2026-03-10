@@ -1,3 +1,4 @@
+%%writefile models/unet_gated.py
 """
 Baseline Model: U-Net with Gated Convolutions
 Pipeline Stage: Architecture Setup
@@ -19,7 +20,7 @@ class GatedConv2d(nn.Module):
 
     def forward(self, x):
         feature = self.feature_conv(x)
-        gate = torch.Tanh(self.gate_conv(x)) # Squish gate between -1 and 1
+        gate = torch.sigmoid(self.gate_conv(x)) # CORRECT: Gate stays Sigmoid (0 to 1)
         return feature * gate # Multiply to mask out garbage pixels
 
 class BaselineUNet(nn.Module):
@@ -66,4 +67,4 @@ class BaselineUNet(nn.Module):
         d2 = self.dec2(torch.cat([d2, e1], dim=1))
         
         out = self.final(d2)
-        return torch.sigmoid(out) # Return final image
+        return torch.tanh(out) # FIXED: Final image output must be Tanh (-1 to 1)
