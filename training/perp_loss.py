@@ -1,6 +1,6 @@
 """
-Adversarial HRFPL & Inpainting Loss
-Pipeline Stage: Phase 6 (GAN Upgrade)
+Unified Inpainting Loss Module
+Supports Early Stages (HRFPL) and Phase 10 (Adversarial GAN)
 """
 import torch
 import torch.nn as nn
@@ -10,7 +10,6 @@ import torchvision.models as models
 class VGG19PerceptualLoss(nn.Module):
     """
     Calculates the Perceptual Loss using a pre-trained VGG19 feature extractor.
-    Forces the model to learn high-frequency textures rather than blurry averages.
     """
     def __init__(self):
         super().__init__()
@@ -47,10 +46,28 @@ class VGG19PerceptualLoss(nn.Module):
             
         return loss
 
+# --- ORIGINAL LOSS (For Stages 4 through 9) ---
+class InpaintingLoss(nn.Module):
+    """
+    The standard master loss function combining pixel-perfect L1 loss with HRFPL.
+    Used for the Control Variable and Ablation Study runs.
+    """
+    def __init__(self, perceptual_weight=0.1):
+        super().__init__()
+        self.l1_loss = nn.L1Loss()
+        self.perceptual_loss = VGG19PerceptualLoss()
+        self.perceptual_weight = perceptual_weight
+
+    def forward(self, pred, target):
+        l1 = self.l1_loss(pred, target)
+        perceptual = self.perceptual_loss(pred, target)
+        return l1 + (self.perceptual_weight * perceptual)
+
+# --- ADVERSARIAL LOSSES (For Stage 10 GAN) ---
 class GeneratorLoss(nn.Module):
     """
-    The master loss function for the Generator. 
-    Combines pixel-perfect L1, VGG Perceptual, and Adversarial (GAN) loss.
+    The master loss function for the GAN Generator. 
+    Combines L1, VGG Perceptual, and Adversarial BCE loss.
     """
     def __init__(self, perceptual_weight=0.1, adv_weight=0.1):
         super().__init__()
@@ -62,17 +79,13 @@ class GeneratorLoss(nn.Module):
         self.adv_weight = adv_weight
 
     def forward(self, pred_fake, target_real, disc_pred_fake):
-        # 1. Structural/Pixel Loss
         l1 = self.l1_loss(pred_fake, target_real)
-        # 2. VGG Texture Loss
         perceptual = self.perceptual_loss(pred_fake, target_real)
-        # 3. Adversarial trickery (Generator wants Discriminator to output 1s)
+        
         target_tensor = torch.ones_like(disc_pred_fake)
         adv = self.adv_loss(disc_pred_fake, target_tensor)
         
-        # Combined objective
-        total_loss = l1 + (self.perceptual_weight * perceptual) + (self.adv_weight * adv)
-        return total_loss
+        return l1 + (self.perceptual_weight * perceptual) + (self.adv_weight * adv)
 
 class DiscriminatorLoss(nn.Module):
     """
@@ -83,10 +96,6 @@ class DiscriminatorLoss(nn.Module):
         self.loss_fn = nn.BCEWithLogitsLoss()
 
     def forward(self, disc_pred_real, disc_pred_fake):
-        # Discriminator wants 1s for real images
         real_loss = self.loss_fn(disc_pred_real, torch.ones_like(disc_pred_real))
-        # Discriminator wants 0s for fake images
         fake_loss = self.loss_fn(disc_pred_fake, torch.zeros_like(disc_pred_fake))
-        
-        # Average the two objectives
         return (real_loss + fake_loss) / 2.0
