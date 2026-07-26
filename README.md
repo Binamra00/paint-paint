@@ -1,4 +1,4 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Binamra00/paint-paint/blob/main/notebooks/domain_inpaint.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Binamra00/paint-paint/blob/main/notebooks/LargeMaskInPainting.ipynb)
 
 # 🌸 Paint-Paint: Domain Adaptive Image Inpainting via Adversarial Fine-Tuning
 
